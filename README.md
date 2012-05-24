@@ -3,7 +3,7 @@ Cinder-Config
 
 This is a configuration file loader and saver class designed for use with the open-source C++ library Cinder: http://libcinder.org
 
-Usage example:
+Usage example
 ------------
 
     params::InterfaceGl mParams;
