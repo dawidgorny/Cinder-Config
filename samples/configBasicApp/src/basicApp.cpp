@@ -121,12 +121,12 @@ void BasicApp::draw()
 
 void BasicApp::saveConfig()
 {
-    mConfig->save( getAppPath().string() + configFilename );
+    mConfig->save( getAppPath() / fs::path(configFilename) );
 }
 
 void BasicApp::loadConfig() 
 {
-    mConfig->load( getAppPath().string() + configFilename );
+    mConfig->load( getAppPath() / fs::path(configFilename) );
 }
 
 CINDER_APP_BASIC( BasicApp, RendererGl )
