@@ -19,8 +19,8 @@ Usage example
     mConfig->addParam("Quatf type parameter", &quatfParam);
     mConfig->addParam("Enum type parameter", enumNames, &enumValue);
     ...
-    mConfig->save( getAppPath().string() + "config.xml" );
+    mConfig->save( getAppPath() / fs::path("config.xml") );
     ...
-    mConfig->load( getAppPath().string() + "config.xml" );
+    mConfig->load( getAppPath() / fs::path("config.xml") );
 
 See sample in samples directory.
