@@ -90,8 +90,8 @@ public:
     
     //-----------------------------------------------------------------------------
     
-    void    save(std::string filePath);
-	void    load(std::string filePath);
+    void    save(fs::path filePath);
+	void    load(fs::path filePath);
     
     //-----------------------------------------------------------------------------
     
