@@ -7,7 +7,7 @@ namespace cinder { namespace config {
 
 //-----------------------------------------------------------------------------
 
-void Config::save(std::string filePath)
+void Config::save(fs::path filePath)
 {
     std::string myXmlStr( "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>" );
 	XmlTree doc(myXmlStr);
@@ -82,7 +82,7 @@ void Config::save(std::string filePath)
 	node = NULL;
 }
     
-void Config::load(std::string filePath)
+void Config::load(fs::path filePath)
 {
     try
 	{
