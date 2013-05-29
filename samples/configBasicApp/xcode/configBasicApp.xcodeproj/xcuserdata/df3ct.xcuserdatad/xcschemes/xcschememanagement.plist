@@ -4,12 +4,7 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>basicApp.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>1</integer>
-		</dict>
-		<key>basicApp_x86_64.xcscheme</key>
+		<key>configBasicApp.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
@@ -17,11 +12,6 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>005D2EFC1132E7D800BBAC73</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>8D1107260486CEB800E47090</key>
 		<dict>
 			<key>primary</key>

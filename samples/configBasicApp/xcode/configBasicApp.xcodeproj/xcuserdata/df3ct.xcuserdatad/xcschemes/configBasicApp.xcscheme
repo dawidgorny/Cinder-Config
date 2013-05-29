@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
+   LastUpgradeVersion = "0460"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -13,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "005D2EFC1132E7D800BBAC73"
-               BuildableName = "basicApp.app"
-               BlueprintName = "basicApp_x86_64"
-               ReferencedContainer = "container:basicApp.xcodeproj">
+               BlueprintIdentifier = "8D1107260486CEB800E47090"
+               BuildableName = "configBasicApp.app"
+               BlueprintName = "configBasicApp"
+               ReferencedContainer = "container:configBasicApp.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -31,10 +32,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "005D2EFC1132E7D800BBAC73"
-            BuildableName = "basicApp.app"
-            BlueprintName = "basicApp_x86_64"
-            ReferencedContainer = "container:basicApp.xcodeproj">
+            BlueprintIdentifier = "8D1107260486CEB800E47090"
+            BuildableName = "configBasicApp.app"
+            BlueprintName = "configBasicApp"
+            ReferencedContainer = "container:configBasicApp.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -50,10 +51,10 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "005D2EFC1132E7D800BBAC73"
-            BuildableName = "basicApp.app"
-            BlueprintName = "basicApp_x86_64"
-            ReferencedContainer = "container:basicApp.xcodeproj">
+            BlueprintIdentifier = "8D1107260486CEB800E47090"
+            BuildableName = "configBasicApp.app"
+            BlueprintName = "configBasicApp"
+            ReferencedContainer = "container:configBasicApp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -68,10 +69,10 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "005D2EFC1132E7D800BBAC73"
-            BuildableName = "basicApp.app"
-            BlueprintName = "basicApp_x86_64"
-            ReferencedContainer = "container:basicApp.xcodeproj">
+            BlueprintIdentifier = "8D1107260486CEB800E47090"
+            BuildableName = "configBasicApp.app"
+            BlueprintName = "configBasicApp"
+            ReferencedContainer = "container:configBasicApp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

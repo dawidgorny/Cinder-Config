@@ -24,7 +24,7 @@
 
 #pragma once
 
-#include "cinder/app/AppBasic.h"
+//#include "cinder/app/App.h"
 #include "cinder/Cinder.h"
 #include "cinder/Color.h"
 #include "cinder/Quaternion.h"
@@ -36,7 +36,7 @@
 #include <vector>
 #include <iterator>
 
-#include <boost/regex.hpp>
+#include <boost/algorithm/string.hpp>
 
 namespace cinder { namespace config {
  
@@ -58,16 +58,28 @@ enum ConfigParamTypes
 
 //-----------------------------------------------------------------------------
 
+    
 class ConfigParam
 {
 public:
     ConfigParam(const std::string &aName, void* aParam, ConfigParamTypes aType) 
     {
-		// === Convert name to alphanum
-        boost::regex alphaNumTest("\\W+", boost::regex::perl); // \W matches any non-word character alphanumeric plus _
-		name = boost::regex_replace( aName, alphaNumTest, "_", boost::match_default | boost::format_perl ) ;
-        std::transform(name.begin(), name.end(), name.begin(), ::tolower); // convert name to lowercase
-
+        name = aName;
+        
+		// === Convert name to alphanum and replace spaces
+        // trim spaces
+        boost::trim(name);
+        // remove multiple spaces
+        std::function<bool(char,char)> isConsecutiveWhiteSpace = []( char a, char b ) { return isspace(a) && isspace(b); };
+        name.erase( std::unique(name.begin(), name.end(), isConsecutiveWhiteSpace), name.end() );
+        // replace spaces with _
+        std::replace(name.begin(), name.end(), ' ', '_');
+        // remove all not valid chars
+        std::function<int(int)> isNameChar = [](char c){ return ( isalnum(c) || c == '_' ); };
+        name.erase( std::remove_if(name.begin(), name.end(), not1( isNameChar ) ), name.end() );
+        // convert name to lowercase
+        std::transform(name.begin(), name.end(), name.begin(), ::tolower); 
+        
         param = aParam;
         type = aType;
     }

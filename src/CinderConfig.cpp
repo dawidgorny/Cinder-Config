@@ -28,7 +28,11 @@ void Config::save(fs::path filePath)
 			node->setTag(it->name);
 			break;
 		case _BOOL:
-			pn.setValue<string>( toString(*((bool*)it->param)) );
+            if( *((bool*)it->param) ) {
+                pn.setValue<int>( 1 );
+            } else {
+                pn.setValue<int>( 0 );
+            }
 			node->push_back( pn );
 			break;
 		case _FLOAT:
