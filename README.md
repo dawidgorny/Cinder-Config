@@ -6,11 +6,11 @@ This is a configuration file loader and saver class designed for use with the op
 Usage example
 ------------
 
-    params::InterfaceGl mParams;
+    params::InterfaceGlRef mParams;
     config::Config*     mConfig;
     
-    mParams = params::InterfaceGl( "Settings", Vec2i( 400, 550 ) );
-    mConfig = new config::Config(&mParams);
+    params::InterfaceGl::create( getWindow(), "Settings", toPixels( Vec2i( 400, 550 ) ) );
+    mConfig = new config::Config(mParams);
     
     mConfig->addParam("Bool type parameter", &boolParam);
     mConfig->addParam("Float type parameter", &floatParam);

@@ -15,7 +15,7 @@ public:
     void saveConfig();
     void loadConfig();
     
-    params::InterfaceGl mParams;
+    params::InterfaceGlRef mParams;
     config::Config*     mConfig;
     
 	string	configFilename;
@@ -64,24 +64,24 @@ void BasicApp::setup()
     
 	//-----------------------------------------------------------------------------
     
-    mParams = params::InterfaceGl( "Settings", Vec2i( 400, 550 ) );
-    mConfig = new config::Config(&mParams);
+    mParams = params::InterfaceGl::create( getWindow(), "Settings", toPixels( Vec2i( 400, 550 ) ) );
+    mConfig = new config::Config(mParams);
     
-    mParams.addParam("Configuration file name", &configFilename);
-    mParams.addButton("Save config", bind(&BasicApp::saveConfig, this));
-    mParams.addButton("Load config", bind(&BasicApp::loadConfig, this));
-    mParams.addSeparator();
+    mParams->addParam("Configuration file name", &configFilename);
+    mParams->addButton("Save config", bind(&BasicApp::saveConfig, this));
+    mParams->addButton("Load config", bind(&BasicApp::loadConfig, this));
+    mParams->addSeparator();
 	
     mConfig->addParam("Background color", &bgColor);
     mConfig->addParam("Text", &text);
-    mParams.addSeparator();
+    mParams->addSeparator();
     
 	mConfig->newNode("Rectangle");
     mConfig->addParam("Show rectangle", &showRect);
     mConfig->addParam("Rectangle rotation", &rectRot);
     mConfig->addParam("Rectangle color", &rectColor);
 	mConfig->addParam("Rectangle position", &rectPosition);
-    mParams.addSeparator();
+    mParams->addSeparator();
     
 	mConfig->newNode("Circle");
 	mConfig->addParam("Show circle", &showCircle);
@@ -116,7 +116,7 @@ void BasicApp::draw()
 		gl::drawSolidCircle(circlePosition.xy(), circleRadius);
 	}
     
-	mParams.draw();
+	mParams->draw();
 }
 
 void BasicApp::saveConfig()

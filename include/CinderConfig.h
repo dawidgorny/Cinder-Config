@@ -98,7 +98,7 @@ public:
 class Config {
 public:
     Config() { mParamsInitialized = false; };
-    Config(params::InterfaceGl*	paramsInterfaceGl) { mParams = paramsInterfaceGl; mParamsInitialized = true; };
+    Config(params::InterfaceGlRef	paramsInterfaceGl) { mParams = paramsInterfaceGl; mParamsInitialized = true; };
     
     //-----------------------------------------------------------------------------
     
@@ -124,7 +124,7 @@ protected:
     void    addConfigParam( const std::string &name, const std::string &keyName, void* param, ConfigParamTypes type);
     
     std::vector<ConfigParam>    mConfigParameters;
-    params::InterfaceGl*        mParams;
+    params::InterfaceGlRef        mParams;
     bool                        mParamsInitialized;
 };   
     

@@ -15,7 +15,7 @@ public:
     void saveConfig();
     void loadConfig();
     
-    params::InterfaceGl mParams;
+    params::InterfaceGlRef mParams;
     config::Config*     mConfig;
     
 	string	configFilename;
@@ -30,20 +30,20 @@ void _TBOX_PREFIX_App::setup()
     
 	//-----------------------------------------------------------------------------
     
-    mParams = params::InterfaceGl( "Settings", Vec2i( 400, 550 ) );
-    mConfig = new config::Config(&mParams);
+    mParams = params::InterfaceGl::create( getWindow(), "Settings", toPixels( Vec2i( 400, 550 ) ) );
+    mConfig = new config::Config(mParams);
     
-    mParams.addParam("Configuration file name", &configFilename);
-    mParams.addButton("Save config", bind(&_TBOX_PREFIX_App::saveConfig, this));
-    mParams.addButton("Load config", bind(&_TBOX_PREFIX_App::loadConfig, this));
-    mParams.addSeparator();
-	
-	// node: general
+    mParams->addParam("Configuration file name", &configFilename);
+    mParams->addButton("Save config", bind(&_TBOX_PREFIX_App::saveConfig, this));
+    mParams->addButton("Load config", bind(&_TBOX_PREFIX_App::loadConfig, this));
+    mParams->addSeparator();
+    
+    // node: general
     //mConfig->addParam("Background color", &bgColor);
-    //mParams.addSeparator();
+    //mParams->addSeparator();
     
     // node: section1
-	//mConfig->newNode("section1");
+    //mConfig->newNode("section1");
     //mConfig->addParam("Show rectangle", &showRect);
     
 }
@@ -53,7 +53,7 @@ void _TBOX_PREFIX_App::draw()
 	gl::setMatricesWindow( getWindowSize() );
 	gl::clear(Color::black());
     
-	mParams.draw();
+	mParams->draw();
 }
 
 void _TBOX_PREFIX_App::saveConfig()
