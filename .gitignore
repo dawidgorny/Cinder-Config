@@ -1,2 +1,5 @@
 
 .DS_Store
+samples/configBasicApp/xcode/build
+samples/configBasicApp/xcode/configBasicApp.xcodeproj/project.xcworkspace/xcuserdata
+samples/configBasicApp/xcode/configBasicApp.xcodeproj/xcuserdata
