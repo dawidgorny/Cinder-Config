@@ -10,13 +10,14 @@ using namespace std;
 class BasicApp : public AppNative {
 public:
     void setup();
+    void shutdown();
 	void draw();
     
     void saveConfig();
     void loadConfig();
     
     params::InterfaceGlRef mParams;
-    config::Config*     mConfig;
+    config::ConfigRef     mConfig;
     
 	string	configFilename;
     
@@ -62,10 +63,12 @@ void BasicApp::setup()
 	enumNames.push_back( "Banana" );
 	enumValue = 0;
     
+    
+    
 	//-----------------------------------------------------------------------------
     
     mParams = params::InterfaceGl::create( getWindow(), "Settings", toPixels( Vec2i( 400, 550 ) ) );
-    mConfig = new config::Config(mParams);
+    mConfig = config::Config::create(mParams);
     
     mParams->addParam("Configuration file name", &configFilename);
     mParams->addButton("Save config", bind(&BasicApp::saveConfig, this));
@@ -95,6 +98,14 @@ void BasicApp::setup()
 	mConfig->addParam("Quatf type parameter", &quatfParam);
 	mConfig->addParam("Enum type parameter", enumNames, &enumValue);
     
+    if(fs::exists( getAppPath() / fs::path(configFilename) ))
+        loadConfig();
+    
+}
+
+void BasicApp::shutdown()
+{
+    saveConfig();
 }
 
 void BasicApp::draw()
@@ -118,6 +129,7 @@ void BasicApp::draw()
     
 	mParams->draw();
 }
+
 
 void BasicApp::saveConfig()
 {

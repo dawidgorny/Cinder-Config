@@ -101,6 +101,7 @@ typedef std::shared_ptr<Config> ConfigRef;
 class Config {
 public:
     static ConfigRef create() { return std::make_shared<Config>(); }
+    static ConfigRef create(params::InterfaceGlRef	paramsInterfaceGl) { return std::make_shared<Config>(paramsInterfaceGl); }
     
     Config() { mParamsInitialized = false; };
     Config(params::InterfaceGlRef	paramsInterfaceGl) { mParams = paramsInterfaceGl; mParamsInitialized = true; };

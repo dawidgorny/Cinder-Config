@@ -11,9 +11,8 @@ void Config::save(fs::path filePath)
 {
     std::string myXmlStr( "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>" );
 	XmlTree doc(myXmlStr);
-	XmlTree* node;
-	node = new XmlTree();
-	node->setTag("general");
+    XmlTree node;
+	node.setTag("general");
 
 	for(std::vector<ConfigParam>::iterator it = mConfigParameters.begin(); it!=mConfigParameters.end(); ++it)
 	{
@@ -23,9 +22,9 @@ void Config::save(fs::path filePath)
 		switch(it->type)
 		{
 		case _NODE:
-			doc.push_back( *node );
-			node = new XmlTree();
-			node->setTag(it->name);
+			doc.push_back( node );
+			node = XmlTree();
+			node.setTag(it->name);
 			break;
 		case _BOOL:
             if( *((bool*)it->param) ) {
@@ -33,57 +32,55 @@ void Config::save(fs::path filePath)
             } else {
                 pn.setValue<int>( 0 );
             }
-			node->push_back( pn );
+			node.push_back( pn );
 			break;
 		case _FLOAT:
 			pn.setValue<float>( *((float*)it->param) );
-			node->push_back( pn );
+			node.push_back( pn );
 			break;
 		case _DOUBLE:
 			pn.setValue<double>( *((double*)it->param) );
-			node->push_back( pn );
+			node.push_back( pn );
 			break;
 		case _INT:
 			pn.setValue<int>( *((int*)it->param) );
-			node->push_back( pn );
+			node.push_back( pn );
 			break;
 		case _VEC3F:
 			pn.setAttribute<float>("x", (*((Vec3f*)it->param)).x);
 			pn.setAttribute<float>("y", (*((Vec3f*)it->param)).y);
 			pn.setAttribute<float>("z", (*((Vec3f*)it->param)).z);
-			node->push_back( pn );
+			node.push_back( pn );
 			break;
 		case _QUATF:
 			pn.setAttribute<float>("w", (*((Quatf*)it->param)).w);
 			pn.setAttribute<float>("x", (*((Quatf*)it->param)).v.x);
 			pn.setAttribute<float>("y", (*((Quatf*)it->param)).v.y);
 			pn.setAttribute<float>("z", (*((Quatf*)it->param)).v.z);
-			node->push_back( pn );
+			node.push_back( pn );
 			break;
 		case _COLOR:
 			pn.setAttribute<float>("r", (*((Color*)it->param)).r);
 			pn.setAttribute<float>("g", (*((Color*)it->param)).g);
 			pn.setAttribute<float>("b", (*((Color*)it->param)).b);
-			node->push_back( pn );
+			node.push_back( pn );
 			break;
 		case _COLORA:
 			pn.setAttribute<float>("r", (*((ColorA*)it->param)).r);
 			pn.setAttribute<float>("g", (*((ColorA*)it->param)).g);
 			pn.setAttribute<float>("b", (*((ColorA*)it->param)).b);
 			pn.setAttribute<float>("a", (*((ColorA*)it->param)).a);
-			node->push_back( pn );
+			node.push_back( pn );
 			break;
 		case _STRING:
 			pn.setValue<std::string>( *((std::string*)it->param) );
-			node->push_back( pn );
+			node.push_back( pn );
 			break;
 		}
 	}
 	
-	doc.push_back( *node );
+	doc.push_back( node );
 	doc.write(writeFile(filePath));
-
-	node = NULL;
 }
     
 void Config::load(fs::path filePath)

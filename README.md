@@ -7,10 +7,10 @@ Usage example
 ------------
 
     params::InterfaceGlRef mParams;
-    config::Config*     mConfig;
+    config::ConfigRef     mConfig;
     
     params::InterfaceGl::create( getWindow(), "Settings", toPixels( Vec2i( 400, 550 ) ) );
-    mConfig = new config::Config(mParams);
+    mConfig = config::Config::create(mParams);
     
     mConfig->addParam("Bool type parameter", &boolParam);
     mConfig->addParam("Float type parameter", &floatParam);
