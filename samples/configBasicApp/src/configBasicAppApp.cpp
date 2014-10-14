@@ -81,9 +81,9 @@ void BasicApp::setup()
     
 	mConfig->newNode("Rectangle");
     mConfig->addParam("Show rectangle", &showRect);
-    mConfig->addParam("Rectangle rotation", &rectRot);
+    mConfig->addParam("Rectangle rotation", &rectRot).min(0).max(360).step(1.0f);  // we can use the new params API
     mConfig->addParam("Rectangle color", &rectColor);
-	mConfig->addParam("Rectangle position", &rectPosition);
+    mConfig->addParam("Rectangle position", &rectPosition);
     mParams->addSeparator();
     
 	mConfig->newNode("Circle");
