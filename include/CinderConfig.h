@@ -111,26 +111,35 @@ public:
     void    save(fs::path filePath);
 	void    load(fs::path filePath);
     
-    //-----------------------------------------------------------------------------
+    // New Params API -------------------------------------------------------------
     
-    void	addParam( const std::string &name, bool *boolParam, const std::string &optionsStr = "", bool readOnly = false, const std::string &keyName = "" );
-	void	addParam( const std::string &name, float *floatParam, const std::string &optionsStr = "", bool readOnly = false, const std::string &keyName = "" );
-	void	addParam( const std::string &name, double *doubleParam, const std::string &optionsStr = "", bool readOnly = false, const std::string &keyName = "" );
-	void	addParam( const std::string &name, int32_t *intParam, const std::string &optionsStr = "", bool readOnly = false, const std::string &keyName = "" );
-	void	addParam( const std::string &name, Vec3f *vectorParam, const std::string &optionsStr = "", bool readOnly = false, const std::string &keyName = "" );
-	void	addParam( const std::string &name, Quatf *quatParam, const std::string &optionsStr = "", bool readOnly = false, const std::string &keyName = "" );
-	void	addParam( const std::string &name, Color *quatParam, const std::string &optionsStr = "", bool readOnly = false, const std::string &keyName = "" );
-	void	addParam( const std::string &name, ColorA *quatParam, const std::string &optionsStr = "", bool readOnly = false, const std::string &keyName = "" );
-	void	addParam( const std::string &name, std::string *strParam, const std::string &optionsStr = "", bool readOnly = false, const std::string &keyName = "" );
+    template <typename T>
+    params::InterfaceGl::Options<T>	addParam( const std::string &name, T *target, bool readOnly = false, const std::string &keyName = "" );
+    
+    // Deprecated API -------------------------------------------------------------
+    
+    void	addParam( const std::string &name, bool *boolParam, const std::string &optionsStr, bool readOnly = false, const std::string &keyName = "" );
+	void	addParam( const std::string &name, float *floatParam, const std::string &optionsStr, bool readOnly = false, const std::string &keyName = "" );
+	void	addParam( const std::string &name, double *doubleParam, const std::string &optionsStr, bool readOnly = false, const std::string &keyName = "" );
+	void	addParam( const std::string &name, int32_t *intParam, const std::string &optionsStr, bool readOnly = false, const std::string &keyName = "" );
+	void	addParam( const std::string &name, Vec3f *vectorParam, const std::string &optionsStr, bool readOnly = false, const std::string &keyName = "" );
+	void	addParam( const std::string &name, Quatf *quatParam, const std::string &optionsStr, bool readOnly = false, const std::string &keyName = "" );
+	void	addParam( const std::string &name, Color *quatParam, const std::string &optionsStr, bool readOnly = false, const std::string &keyName = "" );
+	void	addParam( const std::string &name, ColorA *quatParam, const std::string &optionsStr, bool readOnly = false, const std::string &keyName = "" );
+	void	addParam( const std::string &name, std::string *strParam, const std::string &optionsStr, bool readOnly = false, const std::string &keyName = "" );
 	void	addParam( const std::string &name, const std::vector<std::string> &enumNames, int *param, const std::string &optionsStr = "", bool readOnly = false, const std::string &keyName = "" );
 	
 	void	newNode( const std::string &name, const std::string &optionsStr = "" );
 
 protected:
+    // new API
+    template <typename T>
+    params::InterfaceGl::Options<T>	addParamImpl( const std::string &name, T *target, ConfigParamTypes aType, bool readOnly, const std::string &keyName = "" );
+
     void    addConfigParam( const std::string &name, const std::string &keyName, void* param, ConfigParamTypes type);
     
     std::vector<ConfigParam>    mConfigParameters;
-    params::InterfaceGlRef        mParams;
+    params::InterfaceGlRef      mParams;
     bool                        mParamsInitialized;
 };   
     

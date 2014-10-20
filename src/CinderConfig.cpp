@@ -142,8 +142,42 @@ void Config::load(fs::path filePath)
 		std::cout << "ERROR loading/reading config file." << std::endl;
 	}
 }
+    
+// New Params API -------------------------------------------------------------------
 
-//-----------------------------------------------------------------------------
+// some types might not work well right now (char, uint...)
+// using the types specified in AntTweakBar.h (TW_TYPE_FLOAT, instead of _FLOAT)
+// might be more a more accurate match to what's Params.h supports
+
+template <> params::InterfaceGl::Options<bool>      Config::addParam( const std::string &name, bool *param, bool readOnly, const std::string &keyName )		{ return addParamImpl( name, param, _BOOL, readOnly, keyName ); }
+template <> params::InterfaceGl::Options<char>		Config::addParam( const std::string &name, char *param, bool readOnly, const std::string &keyName )		{ return addParamImpl( name, param, _STRING, readOnly, keyName ); }
+template <> params::InterfaceGl::Options<int8_t>	Config::addParam( const std::string &name, int8_t *param, bool readOnly, const std::string &keyName )	{ return addParamImpl( name, param, _INT, readOnly, keyName ); }
+template <> params::InterfaceGl::Options<uint8_t>	Config::addParam( const std::string &name, uint8_t *param, bool readOnly, const std::string &keyName )	{ return addParamImpl( name, param, _INT, readOnly, keyName ); }
+template <> params::InterfaceGl::Options<int16_t>	Config::addParam( const std::string &name, int16_t *param, bool readOnly, const std::string &keyName )	{ return addParamImpl( name, param, _INT, readOnly, keyName ); }
+template <> params::InterfaceGl::Options<uint16_t>	Config::addParam( const std::string &name, uint16_t *param, bool readOnly, const std::string &keyName )	{ return addParamImpl( name, param, _INT, readOnly, keyName ); }
+template <> params::InterfaceGl::Options<int32_t>	Config::addParam( const std::string &name, int32_t *param, bool readOnly, const std::string &keyName )	{ return addParamImpl( name, param, _INT, readOnly, keyName  ); }
+template <> params::InterfaceGl::Options<uint32_t>	Config::addParam( const std::string &name, uint32_t *param, bool readOnly, const std::string &keyName )	{ return addParamImpl( name, param, _INT, readOnly, keyName  ); }
+template <> params::InterfaceGl::Options<float>		Config::addParam( const std::string &name, float *param, bool readOnly, const std::string &keyName )	{ return addParamImpl( name, param, _FLOAT, readOnly, keyName  ); }
+template <> params::InterfaceGl::Options<double>	Config::addParam( const std::string &name, double *param, bool readOnly, const std::string &keyName )	{ return addParamImpl( name, param, _DOUBLE, readOnly, keyName  ); }
+template <> params::InterfaceGl::Options<string>	Config::addParam( const std::string &name, string *param, bool readOnly, const std::string &keyName )	{ return addParamImpl( name, param, _STRING, readOnly, keyName  ); }
+template <> params::InterfaceGl::Options<Color>		Config::addParam( const std::string &name, Color *param, bool readOnly, const std::string &keyName )	{ return addParamImpl( name, param, _COLOR, readOnly, keyName  ); }
+template <> params::InterfaceGl::Options<ColorA>	Config::addParam( const std::string &name, ColorA *param, bool readOnly, const std::string &keyName )	{ return addParamImpl( name, param, _COLORA, readOnly, keyName  ); }
+template <> params::InterfaceGl::Options<Quatf>		Config::addParam( const std::string &name, Quatf *param, bool readOnly, const std::string &keyName )	{ return addParamImpl( name, param, _QUATF, readOnly, keyName  ); }
+template <> params::InterfaceGl::Options<Quatd>		Config::addParam( const std::string &name, Quatd *param, bool readOnly, const std::string &keyName )	{ return addParamImpl( name, param, _QUATF, readOnly, keyName  ); }
+template <> params::InterfaceGl::Options<Vec3f>		Config::addParam( const std::string &name, Vec3f *param, bool readOnly, const std::string &keyName )	{ return addParamImpl( name, param, _VEC3F, readOnly, keyName  ); }
+template <> params::InterfaceGl::Options<Vec3d>		Config::addParam( const std::string &name, Vec3d *param, bool readOnly, const std::string &keyName )	{ return addParamImpl( name, param, _VEC3F, readOnly, keyName  ); }
+
+template <typename T>
+
+params::InterfaceGl::Options<T>	Config::addParamImpl( const std::string &name, T *target, ConfigParamTypes aType, bool readOnly, const std::string &keyName )
+{
+    // should check for params initialized?
+    addConfigParam(name, keyName, target, aType);
+    return mParams->addParam(name, target, readOnly);
+}
+
+
+// Deprecated API -----------------------------------------------------------------------------
 
 void Config::addParam( const std::string &name, bool *param, const std::string &optionsStr, bool readOnly, const std::string &keyName )
 {

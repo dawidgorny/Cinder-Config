@@ -1,5 +1,50 @@
+# Some general ignore patterns
 
+[Bb]uild/
+[Oo]bj/
+*.o
+[Dd]ebug*/
+[Rr]elease*/
+DerivedData/
+*.mode*
+*.app/
+*.pyc
+.svn/
+*.log
+
+# IDE-specific ignore patterns
+
+#XCode
+*.pbxuser
+*.perspective
+*.perspectivev3
+*.mode1v3
+*.mode2v3
+
+#XCode 4
+xcuserdata
+*.xcworkspace
+*.xcuserdatad
+
+#Visual Studio
+*.sdf
+*.opensdf
+*.suo
+*.pdb
+*.ilk
+*.aps
+*.tlog
+ipch/
+
+# OS-specific ignore patterns
+
+#OSX
 .DS_Store
-samples/configBasicApp/xcode/build
-samples/configBasicApp/xcode/configBasicApp.xcodeproj/project.xcworkspace/xcuserdata
-samples/configBasicApp/xcode/configBasicApp.xcodeproj/xcuserdata
+*.swp
+*~.nib
+# Thumbnails
+._*
+
+#Windows
+Thumbs.db
+Desktop.ini
