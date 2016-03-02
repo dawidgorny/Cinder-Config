@@ -47,16 +47,16 @@ void Config::save(fs::path filePath)
 			node.push_back( pn );
 			break;
 		case _VEC3F:
-			pn.setAttribute<float>("x", (*((Vec3f*)it->param)).x);
-			pn.setAttribute<float>("y", (*((Vec3f*)it->param)).y);
-			pn.setAttribute<float>("z", (*((Vec3f*)it->param)).z);
+			pn.setAttribute<float>("x", (*((glm::fvec3*)it->param)).x);
+			pn.setAttribute<float>("y", (*((glm::fvec3*)it->param)).y);
+			pn.setAttribute<float>("z", (*((glm::fvec3*)it->param)).z);
 			node.push_back( pn );
 			break;
 		case _QUATF:
-			pn.setAttribute<float>("w", (*((Quatf*)it->param)).w);
-			pn.setAttribute<float>("x", (*((Quatf*)it->param)).v.x);
-			pn.setAttribute<float>("y", (*((Quatf*)it->param)).v.y);
-			pn.setAttribute<float>("z", (*((Quatf*)it->param)).v.z);
+			pn.setAttribute<float>("w", (*((glm::quat*)it->param)).w);
+			pn.setAttribute<float>("x", (*((glm::quat*)it->param)).x);
+			pn.setAttribute<float>("y", (*((glm::quat*)it->param)).y);
+			pn.setAttribute<float>("z", (*((glm::quat*)it->param)).z);
 			node.push_back( pn );
 			break;
 		case _COLOR:
@@ -111,15 +111,15 @@ void Config::load(fs::path filePath)
 				*((int*)it->param) = node.getChild(it->name).getValue<int>();
 				break;
 			case _VEC3F:
-				(*((Vec3f*)it->param)).x = node.getChild(it->name).getAttributeValue<float>("x");
-				(*((Vec3f*)it->param)).y = node.getChild(it->name).getAttributeValue<float>("y");
-				(*((Vec3f*)it->param)).z = node.getChild(it->name).getAttributeValue<float>("z");
+				(*((glm::fvec3*)it->param)).x = node.getChild(it->name).getAttributeValue<float>("x");
+				(*((glm::fvec3*)it->param)).y = node.getChild(it->name).getAttributeValue<float>("y");
+				(*((glm::fvec3*)it->param)).z = node.getChild(it->name).getAttributeValue<float>("z");
 				break;
 			case _QUATF:
-				(*((Quatf*)it->param)).w = node.getChild(it->name).getAttributeValue<float>("w");
-				(*((Quatf*)it->param)).v.x = node.getChild(it->name).getAttributeValue<float>("x");
-				(*((Quatf*)it->param)).v.y = node.getChild(it->name).getAttributeValue<float>("y");
-				(*((Quatf*)it->param)).v.z = node.getChild(it->name).getAttributeValue<float>("z");
+				(*((glm::quat*)it->param)).w = node.getChild(it->name).getAttributeValue<float>("w");
+				(*((glm::quat*)it->param)).x = node.getChild(it->name).getAttributeValue<float>("x");
+				(*((glm::quat*)it->param)).y = node.getChild(it->name).getAttributeValue<float>("y");
+				(*((glm::quat*)it->param)).z = node.getChild(it->name).getAttributeValue<float>("z");
 				break;
 			case _COLOR:
 				(*((Color*)it->param)).r = node.getChild(it->name).getAttributeValue<float>("r");
@@ -162,10 +162,9 @@ template <> params::InterfaceGl::Options<double>	Config::addParam( const std::st
 template <> params::InterfaceGl::Options<string>	Config::addParam( const std::string &name, string *param, bool readOnly, const std::string &keyName )	{ return addParamImpl( name, param, _STRING, readOnly, keyName  ); }
 template <> params::InterfaceGl::Options<Color>		Config::addParam( const std::string &name, Color *param, bool readOnly, const std::string &keyName )	{ return addParamImpl( name, param, _COLOR, readOnly, keyName  ); }
 template <> params::InterfaceGl::Options<ColorA>	Config::addParam( const std::string &name, ColorA *param, bool readOnly, const std::string &keyName )	{ return addParamImpl( name, param, _COLORA, readOnly, keyName  ); }
-template <> params::InterfaceGl::Options<Quatf>		Config::addParam( const std::string &name, Quatf *param, bool readOnly, const std::string &keyName )	{ return addParamImpl( name, param, _QUATF, readOnly, keyName  ); }
-template <> params::InterfaceGl::Options<Quatd>		Config::addParam( const std::string &name, Quatd *param, bool readOnly, const std::string &keyName )	{ return addParamImpl( name, param, _QUATF, readOnly, keyName  ); }
-template <> params::InterfaceGl::Options<Vec3f>		Config::addParam( const std::string &name, Vec3f *param, bool readOnly, const std::string &keyName )	{ return addParamImpl( name, param, _VEC3F, readOnly, keyName  ); }
-template <> params::InterfaceGl::Options<Vec3d>		Config::addParam( const std::string &name, Vec3d *param, bool readOnly, const std::string &keyName )	{ return addParamImpl( name, param, _VEC3F, readOnly, keyName  ); }
+template <> params::InterfaceGl::Options<glm::quat>	Config::addParam( const std::string &name, glm::quat *param, bool readOnly, const std::string &keyName )	{ return addParamImpl( name, param, _QUATF, readOnly, keyName  ); }
+template <> params::InterfaceGl::Options<glm::fvec3>Config::addParam( const std::string &name, glm::fvec3 *param, bool readOnly, const std::string &keyName )	{ return addParamImpl( name, param, _VEC3F, readOnly, keyName  ); }
+template <> params::InterfaceGl::Options<glm::dvec3>Config::addParam( const std::string &name, glm::dvec3 *param, bool readOnly, const std::string &keyName )	{ return addParamImpl( name, param, _VEC3F, readOnly, keyName  ); }
 
 template <typename T>
 
@@ -207,14 +206,14 @@ void Config::addParam( const std::string &name, int32_t *param, const std::strin
     addConfigParam(name, keyName, param, _INT);
 } 
 
-void Config::addParam( const std::string &name, Vec3f *param, const std::string &optionsStr, bool readOnly, const std::string &keyName )
+void Config::addParam( const std::string &name, glm::fvec3 *param, const std::string &optionsStr, bool readOnly, const std::string &keyName )
 {
     if(mParamsInitialized)
         mParams->addParam(name, param, optionsStr, readOnly);
     addConfigParam(name, keyName, param, _VEC3F);
 } 
 
-void Config::addParam( const std::string &name, Quatf *param, const std::string &optionsStr, bool readOnly, const std::string &keyName )
+void Config::addParam( const std::string &name, glm::quat *param, const std::string &optionsStr, bool readOnly, const std::string &keyName )
 {
     if(mParamsInitialized)
         mParams->addParam(name, param, optionsStr, readOnly);
